@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     container:{
+        flex: 1,
         width: '100%',
         height:'100%',
         bottom: 0,
@@ -14,10 +15,9 @@ const styles = StyleSheet.create({
     formContainer:{
         width: '100%',
         height: 'auto',
-        marginTop: 30,
+        marginTop: 10,
         padding: 10,
-        alignItems: 'center',
-        
+        alignItems: 'center',        
     },
 
     textTitle:{
@@ -68,11 +68,12 @@ const styles = StyleSheet.create({
     },
 
     resultContainer:{
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '34%',
-    }
+        height: '100%',
+    },
 });
 
 export default styles

@@ -9,6 +9,7 @@ export default function ResultImc(props){
             <Text style={styles.textMessageResult}>{props.messageResultImc}</Text>
             <Text style={styles.imcResult}>{props.resultImc}</Text>
             <Text style={styles.textResult}>{props.texto}</Text>
+
         </View>
     );
 }

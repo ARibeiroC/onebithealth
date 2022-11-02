@@ -9,24 +9,23 @@ export default function Form(){
     const [messageImc, setMessageImc] = useState('Preencha o peso e altura')
     const [imc, setImc] = useState(null)
     const [TextButton, setTextButton] = useState('Calcular IMC')
-    const [alt, setAlt] = useState('nao')
-
-    function imcCalculator(){
-        return setImc((peso/(altura*altura)).toFixed(2))
-    }
+    const [alt, setAlt] = useState('-----')
+    const [teste, setTeste] = useState(null)
+    var result = 0
 
     function validationIMC(){
-        if (altura != null && peso != null){           
-            imcCalculator()
-            if (imc <= 18.5){
+        if (altura != null && peso != null){
+            setImc(result = (peso/(altura*altura)).toFixed(2))
+            setTeste(result)
+            if (result <= 18.5){
                 setAlt('Abaixo do Peso')
-            }else if (imc <= 24.9) {
+            }else if (result > 18.5 && result <= 25) {
                 setAlt('Peso ideal')
-            }else if (imc <= 29.9){
+            }else if (result > 25 && result <= 30){
                 setAlt('Levemente acima do peso')
-            }else if (imc <= 34.9){
+            }else if (result > 30 && result <= 35){
                 setAlt('Obesidade Grau I')
-            }else if (imc <= 39.9){
+            }else if (result > 35 && result <= 40){
                 setAlt('Obesidade Grau II')
             }else {
                 setAlt('Obesidade Grau III')
@@ -36,10 +35,10 @@ export default function Form(){
             setMessageImc('Seu IMC é.: ')
             setTextButton('Novo Calculo')
             return
-        }
+        }else {
         setImc(null)
         setTextButton('Calcular')
-        setMessageImc('Preencha o peso e altura')
+        setMessageImc('Preencha o peso e altura')}
     }
     return(
         <View style={styles.container}>
@@ -72,7 +71,7 @@ export default function Form(){
                 </View>
             </View>
             <View style={styles.resultContainer}>
-                <ResultImc messageResultImc={messageImc} resultImc={imc} texto={alt} />
+                <ResultImc messageResultImc={messageImc} resultImc={imc} texto={alt} teste={teste}/>
             </View>
             
         </View>
