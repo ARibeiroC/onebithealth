@@ -1,5 +1,5 @@
 import React from "react"
-import {View, Text} from 'react-native'
+import {View, Text, Touchable, TouchableOpacity} from 'react-native'
 import styles from "./styles"
 
 
@@ -9,7 +9,6 @@ export default function ResultImc(props){
             <Text style={styles.textMessageResult}>{props.messageResultImc}</Text>
             <Text style={styles.imcResult}>{props.resultImc}</Text>
             <Text style={styles.textResult}>{props.texto}</Text>
-
         </View>
     );
 }

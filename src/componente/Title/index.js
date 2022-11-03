@@ -1,12 +1,12 @@
 import React from "react"
-import {View, Text} from 'react-native'
+import {Text, Pressable, Keyboard} from 'react-native'
 import styles from "./styles"
 
 
 export default function Title(){
     return(
-        <View style={styles.container}>
+        <Pressable onPress={Keyboard.dismiss} style={styles.container}>
             <Text style={styles.title}>ONEBITHEALTH</Text>
-        </View>
+        </Pressable>
     );
 }

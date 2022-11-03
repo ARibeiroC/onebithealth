@@ -1,48 +1,90 @@
 import React, {useState} from "react"
-import {View, Text, TextInput, TouchableOpacity} from 'react-native'
+import {View, Text, TextInput, TouchableOpacity, Alert, Vibration, Share, KeyboardAvoidingView, Keyboard, Pressable} from 'react-native'
+import {FontAwesome5} from '@expo/vector-icons'
 import ResultImc from "./ResultImc";
 import styles from './styles'
 
 export default function Form(){
     const [altura, setAltura] = useState(null)
     const [peso, setPeso] = useState(null)
-    const [messageImc, setMessageImc] = useState('Preencha o peso e altura')
+    const [messageImc, setMessageImc] = useState('')
     const [imc, setImc] = useState(null)
     const [TextButton, setTextButton] = useState('Calcular IMC')
-    const [alt, setAlt] = useState('-----')
-    const [teste, setTeste] = useState(null)
+    const [textInfoImc, setTextInfoImc] = useState('')
+    const [shouldShow, setShouldShow] = useState(false)
     var result = 0
+    const app = 'https://github.com/ARibeiroC'
+
+    function errorMessage(){
+        Alert.alert(
+            'Atenção','Campos vazios, preencha-os antes de calcular',[
+                {text: "OK", onPress: () => console.log("OK Pressed")}
+            ]
+        )
+        Vibration.vibrate()
+        setShouldShow(null)
+    }
+
+    function resultValurImc(){
+        let alturaFormat = altura.replace(',','.')
+        result = (peso/(alturaFormat*alturaFormat)).toFixed(2)
+        return result
+    }
 
     function validationIMC(){
         if (altura != null && peso != null){
-            setImc(result = (peso/(altura*altura)).toFixed(2))
-            setTeste(result)
-            if (result <= 18.5){
-                setAlt('Abaixo do Peso')
-            }else if (result > 18.5 && result <= 25) {
-                setAlt('Peso ideal')
-            }else if (result > 25 && result <= 30){
-                setAlt('Levemente acima do peso')
-            }else if (result > 30 && result <= 35){
-                setAlt('Obesidade Grau I')
-            }else if (result > 35 && result <= 40){
-                setAlt('Obesidade Grau II')
+            setImc(resultValurImc())
+            if (resultValurImc() <= 18.5){
+                setTextInfoImc('Abaixo do Peso')
+            }else if (resultValurImc() > 18.5 && resultValurImc() <= 25) {
+                setTextInfoImc('Peso ideal')
+            }else if (resultValurImc() > 25 && resultValurImc() <= 30){
+                setTextInfoImc('Levemente acima do peso')
+            }else if (resultValurImc() > 30 && resultValurImc() <= 35){
+                setTextInfoImc('Obesidade Grau I')
+            }else if (resultValurImc() > 35 && resultValurImc() <= 40){
+                setTextInfoImc('Obesidade Grau II')
             }else {
-                setAlt('Obesidade Grau III')
+                setTextInfoImc('Obesidade Grau III')
             }
             setAltura(null)
             setPeso(null)
             setMessageImc('Seu IMC é.: ')
             setTextButton('Novo Calculo')
+            Vibration.vibrate()
+            setShouldShow(true)
             return
         }else {
         setImc(null)
+        setTextInfoImc('')
         setTextButton('Calcular')
-        setMessageImc('Preencha o peso e altura')}
+        setMessageImc(errorMessage())
+        setShouldShow(null)
+        }
     }
+
+    const onShare = async () => {
+        try {
+          const result = await Share.share({
+            message:
+              `Calcule o seu IMC também em ${app}, O meu IMC é > ${imc} / ${textInfoImc}`
+          });
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      };
     return(
         <View style={styles.container}>
-            <View style={styles.formContainer}>
+            <Pressable style={styles.formContainer} onPress={Keyboard.dismiss}>
                 <Text style={styles.textTitle}>Altura</Text>
                 <TextInput
                     style={styles.input}
@@ -68,10 +110,17 @@ export default function Form(){
                     >
                         <Text style={styles.textButtonCalculator}>{TextButton}</Text>
                     </TouchableOpacity>
+                    {
+                        shouldShow ? (
+                            <TouchableOpacity style={styles.containerShareBtn} onPress={onShare}>
+                        <FontAwesome5 name="share-alt-square" size={24} color="#ff0043" />
+                    </TouchableOpacity>
+                        ) : null
+                    }
                 </View>
-            </View>
+            </Pressable>
             <View style={styles.resultContainer}>
-                <ResultImc messageResultImc={messageImc} resultImc={imc} texto={alt} teste={teste}/>
+                <ResultImc messageResultImc={messageImc} resultImc={imc} texto={textInfoImc}/>
             </View>
             
         </View>

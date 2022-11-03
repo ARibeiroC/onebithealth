@@ -39,13 +39,18 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         borderRadius: 50,
-        backgroundColor: '#999', 
+        borderStyle: 'dotted',
+        borderWidth: 2,
+        borderColor: '#aaa',
+        backgroundColor: '#ddd', 
         color: '#000',
         fontSize: 18,
     },
 
     buttonContainer:{
+        flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center',
         width: '100%',
     },
 
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '90%',
+        width: '60%',
         paddingTop: 14,
         paddingBottom: 14,
         marginLeft: 12,
@@ -65,6 +70,19 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
         fontWeight: 'bold'
+    },
+
+    containerShareBtn:{
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: '#ff0043',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '14%',
+        padding: 10,
+        marginLeft: 12,
+        marginTop: 30,
     },
 
     resultContainer:{

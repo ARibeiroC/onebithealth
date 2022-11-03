@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '90%',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         borderStyle: "dashed",
         borderWidth: 1,
         borderColor: '#999',
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     imcResult:{
         fontSize: 36,
         fontWeight: 'bold',
+        color: '#ff0043',
     },
 
     textResult:{
